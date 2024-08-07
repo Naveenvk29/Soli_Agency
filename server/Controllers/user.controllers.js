@@ -19,6 +19,7 @@ const createUser = asyncHandler(async (req, res) => {
       _id: user._id,
       username: user.username,
       email: user.email,
+      role: user.role,
     });
   } catch (error) {
     console.error(error);
@@ -40,6 +41,7 @@ const loginUser = asyncHandler(async (req, res) => {
         _id: user._id,
         username: user.username,
         email: user.email,
+        role: user.role,
       });
     } else {
       return res.status(401).json({ message: "Invalid credentials" });

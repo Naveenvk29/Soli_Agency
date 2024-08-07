@@ -1,4 +1,4 @@
-import { createApi } from "@reduxjs/toolkit/query/react";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   userInfo: localStorage.getItem("userInfo")
@@ -6,26 +6,23 @@ const initialState = {
     : null,
 };
 
-const authSlice = createApi({
+const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducer: {
+  reducers: {
     setCredentials: (state, action) => {
       state.userInfo = action.payload;
+      // console.log("Setting user info:", action.payload); // Add this log
       localStorage.setItem("userInfo", JSON.stringify(action.payload));
-
       const expirationTime = new Date().getTime() + 3 * 24 * 60 * 60 * 1000;
-      localStorage.getItem("expirationTime", expirationTime);
+      localStorage.setItem("expirationTime", expirationTime);
     },
     logout: (state) => {
       state.userInfo = null;
-      localStorage.removeItem("userInfo");
-      localStorage.removeItem("expirationTime");
       localStorage.clear();
     },
   },
 });
 
-export const { setCredentials, logout } = authSlice.action;
-
+export const { setCredentials, logout } = authSlice.actions;
 export default authSlice.reducer;
