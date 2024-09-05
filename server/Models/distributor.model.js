@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const distributorSchema = new mongoose.Schema(
   {
-    ProfilePic: {
+    profilePic: {
       url: { type: String },
       public_id: { type: String },
     },
