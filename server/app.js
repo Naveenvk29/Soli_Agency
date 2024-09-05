@@ -1,6 +1,9 @@
 import express from "express";
 import cookiesParser from "cookie-parser";
+
+//
 import userRoutes from "./Routes/user.route.js";
+import soilRoutes from "./Routes/soil.routes.js";
 
 const app = express();
 
@@ -14,5 +17,6 @@ app.get("/test", (req, res) => {
 });
 
 app.use("/api/users", userRoutes);
+app.use("/api/soils", soilRoutes);
 
 export { app };
