@@ -89,3 +89,5 @@ const soilSchema = new mongoose.Schema(
 );
 
 const Soil = mongoose.model("Soil", soilSchema);
+
+export default Soil;

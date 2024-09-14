@@ -12,18 +12,22 @@ import {
 } from "../Middlewares/auth.middleware.js";
 import upload from "../Middlewares/multer.middleware.js";
 
+const router = express.Router();
+
 router
   .route("/")
   .get(getAllSoils)
-  .post(authenticated, authorizedAsAdmin, createSoil);
-
-router.route("/:id").get(authenticated, getSoilById);
+  .post(
+    upload.single("soilImage"),
+    authenticated,
+    authorizedAsAdmin,
+    createSoil
+  );
 
 router
-  .route("/soilprofile")
+  .route("/:id")
+  .get(authenticated, getSoilById)
   .put(authenticated, authorizedAsAdmin, updateSoil)
   .delete(authenticated, authorizedAsAdmin, deleteSoil);
-
-const router = express.Router();
 
 export default router;
