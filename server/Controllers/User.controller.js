@@ -62,6 +62,7 @@ const getAllUser = asyncHandler(async (req, res) => {
   const users = await User.find().select("-password");
   res.status(200).json(users);
 });
+
 const getSpecificUser = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id).select("-password");
@@ -72,16 +73,18 @@ const getSpecificUser = asyncHandler(async (req, res) => {
 });
 
 const getcurrentUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id);
+  console.log("Current user in req:", req.user); // Make sure req.user is set
+
+  if (!req.user) {
+    return res.status(401).json({ message: "Not authorized, token failed" });
+  }
+
+  const user = await User.findById(req.user._id).select("-password");
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
-  res.status(200).json({
-    _id: user._id,
-    username: user.username,
-    email: user.email,
-    role: user.role,
-  });
+
+  res.status(200).json(user);
 });
 
 const updateUserProfile = asyncHandler(async (req, res) => {

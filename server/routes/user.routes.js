@@ -9,16 +9,25 @@ import {
   getSpecificUser,
 } from "../Controllers/User.controller.js";
 
+import {
+  authenticated,
+  authorrizedAsAdmin,
+} from "../Middlewares/auth.middleware.js";
+
 const router = express.Router();
 
-router.route("/").post(registerUser).get(getAllUser);
-router.route("/:id").get(getSpecificUser);
+router
+  .route("/")
+  .post(registerUser)
+  .get(authenticated, authorrizedAsAdmin, getAllUser);
+router.route("/:id").get(authenticated, authorrizedAsAdmin, getSpecificUser);
 router.post("/login", loginUser);
 
 router.post("/logout", logOutUser);
 
-router.get("/profile", getcurrentUserProfile);
-
-router.put("/profile", updateUserProfile);
+router
+  .route("/profile")
+  .get(authenticated, getcurrentUserProfile)
+  .put(authenticated, updateUserProfile);
 
 export default router;
