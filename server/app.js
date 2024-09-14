@@ -14,4 +14,7 @@ app.get("/test", (req, res) => {
   console.log("Hello, World!");
 });
 
+import userRoute from "./routes/user.routes.js";
+app.use("/api/users", userRoute);
+
 export { app };

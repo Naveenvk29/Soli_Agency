@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const DB_NAME = "Soil_agent";
+const DB_NAME = "Soil_Agency";
 
 const connectDB = async () => {
   try {
