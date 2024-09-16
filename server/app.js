@@ -15,6 +15,11 @@ app.get("/test", (req, res) => {
 });
 
 import userRoute from "./routes/user.routes.js";
+import soilRoute from "./routes/soil.routes.js";
+import distributorsRoutes from "./routes/distributors.routes.js";
+
 app.use("/api/users", userRoute);
+app.use("/api/soils", soilRoute);
+app.use("/api/distributors", distributorsRoutes);
 
 export { app };
