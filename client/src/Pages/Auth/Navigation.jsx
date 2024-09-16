@@ -47,13 +47,7 @@ const Navigation = () => {
             </button>
           </div>
         )}
-        {userInfo.role === "admin" && (
-          <div className="flex items-center gap-5">
-            <Link to="/admin" className="text-xl font-extrabold">
-              <span className="">Admin Panel</span>
-            </Link>
-          </div>
-        )}
+
         {!userInfo && (
           <div className="flex items-center justify-center gap-5">
             <Link to="/login" className="text-xl font-extrabold">
