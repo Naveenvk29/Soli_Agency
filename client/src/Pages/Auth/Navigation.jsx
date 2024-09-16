@@ -1,4 +1,4 @@
-import soillogo from "../../assets/soil.png";
+// import soillogo from "../../assets/soil.png";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,6 +11,19 @@ const Navigation = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const logoutMutation = useLogoutMutation();
+
+  const handleLogout = async () => {
+    try {
+      await logoutMutation.mutate();
+      dispatch(logOut());
+      toast.success("Logged out successfully!");
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to log out!");
+    }
+  };
+
   return (
     <div className=" px-[5vw] py-5 flex justify-between items-center   ">
       {/* <img src={soillogo} alt="Logo" className="h-12 w-12" /> */}
@@ -20,6 +33,27 @@ const Navigation = () => {
 
       <div className="flex gap-8 "></div>
       <div className="relative flex">
+        {userInfo && (
+          <div className="flex items-center gap-5">
+            <span className="text-xl font-extrabold">{userInfo.username}</span>
+            <button onClick={handleLogout} className="text-xl font-extrabold">
+              <span className="">Logout</span>
+            </button>
+            <button
+              onClick={() => navigate(`/profile`)}
+              className="text-xl font-extrabold"
+            >
+              <span className="">Profile</span>
+            </button>
+          </div>
+        )}
+        {userInfo.role === "admin" && (
+          <div className="flex items-center gap-5">
+            <Link to="/admin" className="text-xl font-extrabold">
+              <span className="">Admin Panel</span>
+            </Link>
+          </div>
+        )}
         {!userInfo && (
           <div className="flex items-center justify-center gap-5">
             <Link to="/login" className="text-xl font-extrabold">
