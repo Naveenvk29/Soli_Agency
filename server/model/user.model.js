@@ -24,13 +24,13 @@ const userSchema = new mongoose.Schema(
       enum: ["admin", "user"],
       default: "user",
     },
+    phone: { type: String },
     address: {
       street: { type: String },
       city: { type: String },
       state: { type: String },
       zip: { type: String },
     },
-    phone: { type: String },
   },
   {
     timestamps: true,
@@ -45,7 +45,7 @@ userSchema.pre("save", async function (next) {
 });
 
 userSchema.methods.isPasswordIsValid = async function (password) {
-  return await bcrypt.compare(this.password, password);
+  return await bcrypt.compare(password, this.password);
 };
 
 const User = mongoose.model("User", userSchema);
