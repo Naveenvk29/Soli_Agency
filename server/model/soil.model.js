@@ -42,7 +42,7 @@ const SoilSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Distributors",
     },
-    SoilPic: {
+    SoilImage: {
       url: { type: String }, // URL of the movie poster
       public_id: { type: String },
     },

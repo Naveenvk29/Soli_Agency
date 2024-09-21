@@ -1,1 +1,1 @@
-<img src="./Soildatamodel.png" alt="soil data model" />
+<img src="./server/public/Soildatamodel.png" alt="soil data model" />

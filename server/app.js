@@ -3,7 +3,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 
 //
-import userRoutes from "./routes/user.route.js";
+import userRoutes from "./routes/user.routes.js";
+import soilRoutes from "./routes/soil.routes.js";
 const app = express();
 
 app.use(cors());
@@ -18,5 +19,6 @@ app.get("/test", (req, res) => {
 });
 
 app.use("/api/users", userRoutes);
+app.use("/api/soils", soilRoutes);
 
 export { app };
