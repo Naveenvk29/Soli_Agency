@@ -1,1 +1,1 @@
-<ima src="https://app.eraser.io/workspace/VTGfTvEQhPDLHtzn5Jbw"/>
+<img src="./Soildatamodel.png" alt="soil data model" />
