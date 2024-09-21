@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 //
 import userRoutes from "./routes/user.routes.js";
 import soilRoutes from "./routes/soil.routes.js";
+import distributorRoutes from "./routes/distributor.routes.js";
 const app = express();
 
 app.use(cors());
@@ -20,5 +21,6 @@ app.get("/test", (req, res) => {
 
 app.use("/api/users", userRoutes);
 app.use("/api/soils", soilRoutes);
+app.use("/api/distributors", distributorRoutes);
 
 export { app };
