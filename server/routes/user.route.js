@@ -7,14 +7,24 @@ import {
   getcurrentUserProfile,
   updateUserProfile,
 } from "../controllers/user.controller.js";
+import {
+  authenticatedUser,
+  authorizedAsAdmin,
+} from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-router.route("/").post(registerUser).get(getAllUsers);
+router
+  .route("/")
+  .post(registerUser)
+  .get(authenticatedUser, authorizedAsAdmin, getAllUsers);
 
 router.post("/login", loginUser);
 
 router.post("/logout", logOutUser);
-router.route("/profile").get(getcurrentUserProfile).post(updateUserProfile);
+router
+  .route("/profile")
+  .get(authenticatedUser, getcurrentUserProfile)
+  .put(authenticatedUser, updateUserProfile);
 
 export default router;
