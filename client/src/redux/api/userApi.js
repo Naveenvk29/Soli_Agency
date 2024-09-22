@@ -3,42 +3,42 @@ import { apiSlice } from "./apiSlice";
 
 const userApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    resgister: builder.mutation({
+    register: builder.mutation({
       query: (data) => ({
-        url: `${USERS_URL}`,
+        url: `${USERS_URL}/`,
         method: "POST",
         body: data,
       }),
     }),
     login: builder.mutation({
       query: (data) => ({
-        url: `${USERS_URL}/login`,
+        url: `${USERS_URL}/login/`,
         method: "POST",
         body: data,
       }),
     }),
     getUsers: builder.query({
       query: () => ({
-        url: `${USERS_URL}`,
+        url: `${USERS_URL}/`,
         method: "GET",
       }),
     }),
     getUserProfile: builder.query({
       query: () => ({
-        url: `${USERS_URL}/profile`,
+        url: `${USERS_URL}/profile/`,
         method: "GET",
       }),
     }),
     updateUserProfile: builder.mutation({
       query: (data) => ({
-        url: `${USERS_URL}/profile`,
+        url: `${USERS_URL}/profile/`,
         method: "PUT",
         body: data,
       }),
     }),
     logout: builder.mutation({
       query: () => ({
-        url: `${USERS_URL}/logout`,
+        url: `${USERS_URL}/logout/`,
         method: "POST",
       }),
     }),
@@ -46,7 +46,7 @@ const userApi = apiSlice.injectEndpoints({
 });
 
 export const {
-  useResgisterMutation,
+  useRegisterMutation,
   useLoginMutation,
   useGetUsersQuery,
   useGetUserProfileQuery,
