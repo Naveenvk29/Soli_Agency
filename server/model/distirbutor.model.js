@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
-const distributorSchema =
-  ({
+const distributorSchema = new mongoose.Schema(
+  {
     name: {
       type: String,
       required: true,
@@ -28,7 +28,10 @@ const distributorSchema =
       public_id: { type: String },
     },
   },
-  { timestamp: true });
+  {
+    timestamps: true,
+  }
+);
 
 const Distributor = mongoose.model("Distributor", distributorSchema);
 

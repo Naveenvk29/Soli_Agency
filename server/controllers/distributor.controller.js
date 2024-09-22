@@ -15,7 +15,7 @@ const getDistributors = asyncHandler(async (req, res) => {
 // get specific distributor by id
 const getDistributorById = asyncHandler(async (req, res) => {
   try {
-    const { id } = req.params.id;
+    const { id } = req.params;
     const distributor = await Distributor.findById(id);
     if (!distributor) {
       return res.status(404).json({ message: "Distributor not found" });
@@ -29,7 +29,7 @@ const getDistributorById = asyncHandler(async (req, res) => {
 // create distributor by admin
 const createDistributor = asyncHandler(async (req, res) => {
   try {
-    const { name, email, contact, location } = req.body;
+    const { name, email, contact, location, soil } = req.body;
     const uploadProfileImage = req.file;
 
     const exgitingDistributor = await Distributor.findOne({ name, email });
@@ -46,6 +46,7 @@ const createDistributor = asyncHandler(async (req, res) => {
       contact,
       location,
       profilePic,
+      soil,
     });
     const distirbutor = await distributorinfo.save();
 
@@ -58,7 +59,7 @@ const createDistributor = asyncHandler(async (req, res) => {
 // update distributor by admin
 const updateDistributor = asyncHandler(async (req, res) => {
   try {
-    const { id } = req.params.id;
+    const { id } = req.params;
     const { name, email, contact, location } = req.body;
     const distributor = await Distributor.findById(id);
     if (!distributor) {
@@ -88,17 +89,19 @@ const updateDistributor = asyncHandler(async (req, res) => {
 // delete distributor by admin
 const deleteDistributor = asyncHandler(async (req, res) => {
   try {
-    const { id } = req.params.id;
+    const { id } = req.params;
     const distributor = await Distributor.findById(id);
     if (!distributor) {
       return res.status(404).json({ message: "Distributor not found" });
     }
     if (distributor.profilePic) {
-      await deleteProfilePic(deleteDistributor.profilePic.public_id);
+      await deleteProfilePic(distributor.profilePic.public_id);
     }
-    await distributor.remove();
+    await distributor.deleteOne();
     res.json({ message: "Distributor deleted successfully" });
   } catch (error) {
+    console.log(error);
+
     res.status(500).json({ message: "Server Error" });
   }
 });

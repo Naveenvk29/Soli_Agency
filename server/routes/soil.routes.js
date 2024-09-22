@@ -17,12 +17,22 @@ const router = express.Router();
 router
   .route("/")
   .get(getAllSoils)
-  .post(authenticatedUser, authorizedAsAdmin, upload("SoilImage"), createSoil);
+  .post(
+    authenticatedUser,
+    authorizedAsAdmin,
+    upload.single("SoilImage"),
+    createSoil
+  );
 
 router
   .route("/:id")
   .get(authenticatedUser, getsoilById)
-  .put(authenticatedUser, authorizedAsAdmin, upload("SoilImage"), updateSoil)
+  .put(
+    authenticatedUser,
+    authorizedAsAdmin,
+    upload.single("SoilImage"),
+    updateSoil
+  )
   .delete(authenticatedUser, authorizedAsAdmin, deleteSoil);
 
 export default router;

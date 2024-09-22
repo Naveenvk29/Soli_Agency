@@ -58,14 +58,17 @@ const updateSoil = asyncHandler(async (req, res) => {
       return res.status(404).json({ message: "Soil not found" });
     }
 
-    // delete existing SOIL image and update new SOIL image
+    // Handle image update
     if (req.file) {
-      const SoilImage = await uploadSoilImage(req.file);
-      soil.SoilImage = SoilImage;
-      await deleteSoilImage(soil.SoilImage.public_id);
+      const newSoilImage = await uploadSoilImage(req.file);
+      // Delete old image only if it exists
+      if (soil.SoilImage && soil.SoilImage.public_id) {
+        await deleteSoilImage(soil.SoilImage.public_id);
+      }
+      soil.SoilImage = newSoilImage;
     }
-    // update soil info
-    soil.name = req.body || soil.name;
+    // Update soil fields only if they are present in the request body
+    soil.name = req.body.name || soil.name;
     soil.type = req.body.type || soil.type;
     soil.texture = req.body.texture || soil.texture;
     soil.nutrients = req.body.nutrients || soil.nutrients;
@@ -93,7 +96,7 @@ const deleteSoil = asyncHandler(async (req, res) => {
       return res.status(404).json({ message: "Soil not found" });
     }
     await deleteSoilImage(soil.SoilImage.public_id);
-    await soil.remove();
+    await soil.deleteOne();
     res.json({ message: "Soil deleted successfully" });
   } catch (error) {
     console.error(error);

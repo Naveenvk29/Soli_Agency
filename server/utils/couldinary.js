@@ -18,8 +18,7 @@ const uploadImage = async (file, folder, publicIdPrefix) => {
       public_id: `${publicIdPrefix}/${file.filename}`,
       resource_type: "auto",
     });
-    await fs.unlink(file.path); // Use async file removal
-    console.log(res.secure_url, res.public_id);
+    await fs.unlink(file.path); // console.log(res.secure_url, res.public_id);
     return res;
   } catch (error) {
     await fs.unlink(file.path); // Ensure file is removed even if upload fails
@@ -39,7 +38,7 @@ const uploadProfilePic = (file) =>
 const deleteImage = async (publicId) => {
   try {
     const res = await cloudinary.uploader.destroy(publicId);
-    console.log(`Image with public_id: ${publicId} deleted successfully!`);
+    // console.log(`Image with public_id: ${publicId} deleted successfully!`);
     return res;
   } catch (error) {
     console.error(

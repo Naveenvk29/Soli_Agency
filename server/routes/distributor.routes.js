@@ -21,7 +21,7 @@ router
   .post(
     authenticatedUser,
     authorizedAsAdmin,
-    upload("profilePic"),
+    upload.single("profilePic"),
     createDistributor
   );
 
@@ -31,7 +31,7 @@ router
   .put(
     authenticatedUser,
     authorizedAsAdmin,
-    upload("profilePic"),
+    upload.single("profilePic"),
     updateDistributor
   )
   .delete(authenticatedUser, authorizedAsAdmin, deleteDistributor);
