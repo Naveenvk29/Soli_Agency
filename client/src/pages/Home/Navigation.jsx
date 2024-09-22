@@ -32,7 +32,10 @@ const Navigation = () => {
 
       <div className="flex  space-x-6">
         {["Home", "distributors", "soil", "about"].map((e, i) => (
-          <Link key={i} to={`/${e}`}>
+          <Link
+            key={i}
+            to={e.toLowerCase() === "home" ? "/" : `/${e.toLowerCase()}`}
+          >
             <h2 className="text-lg font-bold tracking-widest capitalize hover:underline">
               {e}
             </h2>
@@ -40,17 +43,16 @@ const Navigation = () => {
         ))}
       </div>
 
-      {userInfo?.role === "admin" && (
-        <Link to="/admin/dashboard">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Admin Dashboard
-          </button>
-        </Link>
-      )}
-
       <div className="flex items-center space-x-4">
         {userInfo ? (
           <div className="flex items-center space-x-2">
+            {userInfo?.role === "admin" && (
+              <Link to="/admin/dashboard">
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Admin Dashboard
+                </button>
+              </Link>
+            )}
             <span className="text-gray-500">{userInfo.name}</span>
             <Link to="/profile" className="hover:underline">
               Profile
