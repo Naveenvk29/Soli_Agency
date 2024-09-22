@@ -1,11 +1,16 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Navigation from "./pages/Home/Navigation";
+import { Outlet } from "react-router-dom";
+import Footer from "./pages/Home/Footer";
 
 const App = () => {
   return (
-    <div className="text-6xl font-black underline text-blue-300">
+    <div className="p-5">
       <ToastContainer />
-      App
+      <Navigation />
+      <Outlet />
+      <Footer />
     </div>
   );
 };
