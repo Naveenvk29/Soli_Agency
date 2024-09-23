@@ -106,6 +106,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       username: updatedUser.username,
       email: updatedUser.email,
       role: updatedUser.role,
+      address: updatedUser.address,
+      phone: updatedUser.phone,
     });
   } else {
     res.status(404).json({ message: "User not found" });

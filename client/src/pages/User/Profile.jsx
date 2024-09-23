@@ -8,8 +8,15 @@ import Loader from "../../components/Loader";
 const Profile = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState(""); // Phone number state
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  // Address fields
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
 
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -20,8 +27,15 @@ const Profile = () => {
     if (userInfo) {
       setUsername(userInfo.username);
       setEmail(userInfo.email);
+      setPhone(userInfo.phone);
+      if (userInfo.address) {
+        setStreet(userInfo.address.street);
+        setCity(userInfo.address.city);
+        setState(userInfo.address.state);
+        setZip(userInfo.address.zip);
+      }
     }
-  }, [userInfo, setUsername, setEmail]);
+  }, [userInfo]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,7 +47,9 @@ const Profile = () => {
       const updatedUser = await updateUserProfile({
         username,
         email,
+        phone,
         password,
+        address: { street, city, state, zip }, // Include address in the update
       }).unwrap();
       toast.success("Profile updated successfully!");
       dispatch(setCredentials({ ...updatedUser }));
@@ -45,7 +61,7 @@ const Profile = () => {
 
   return (
     <div className="w-[60%] ml-[35%]">
-      <div className="w-full h-full">
+      <div className="w-full h-full mt-5 ">
         <h1 className="text-3xl font-bold my-4 ml-[18%] underline">Profile</h1>
         {isLoading && <Loader />} {/* Display Loader while updating */}
         <form onSubmit={handleSubmit}>
@@ -72,6 +88,62 @@ const Profile = () => {
           </div>
 
           <div className="my-3 flex flex-col">
+            <label className="text-lg font-semibold mb-4">Phone</label>
+            <input
+              type="text"
+              placeholder="Enter your phone number"
+              className="w-[30vw] text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </div>
+
+          {/* Address Fields */}
+          <div className="my-3 flex flex-col">
+            <label className="text-lg font-semibold mb-4">Street</label>
+            <input
+              type="text"
+              placeholder="Enter your street address"
+              className="w-[30vw] text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
+              value={street}
+              onChange={(e) => setStreet(e.target.value)}
+            />
+          </div>
+
+          <div className="my-3 flex flex-col">
+            <label className="text-lg font-semibold mb-4">City</label>
+            <input
+              type="text"
+              placeholder="Enter your city"
+              className="w-[30vw] text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
+          </div>
+
+          <div className="my-3 flex flex-col">
+            <label className="text-lg font-semibold mb-4">State</label>
+            <input
+              type="text"
+              placeholder="Enter your state"
+              className="w-[30vw] text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
+            />
+          </div>
+
+          <div className="my-3 flex flex-col">
+            <label className="text-lg font-semibold mb-4">ZIP Code</label>
+            <input
+              type="text"
+              placeholder="Enter your ZIP code"
+              className="w-[30vw] text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
+              value={zip}
+              onChange={(e) => setZip(e.target.value)}
+            />
+          </div>
+
+          <div className="my-3 flex flex-col">
             <label className="text-lg font-semibold mb-4">Password</label>
             <input
               type="password"
@@ -88,7 +160,7 @@ const Profile = () => {
             </label>
             <input
               type="password"
-              placeholder="Enter your confirm password"
+              placeholder="Confirm your password"
               className="w-[30vw] text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
