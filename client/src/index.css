@@ -7,20 +7,3 @@ body {
   background-color: #151515;
   color: #fff;
 }
-/* Light Mode */
-.light {
-  --bg-color: #e9efec;
-  --text-color: black;
-}
-
-/* Dark Mode */
-.dark {
-  --bg-color: #151515;
-  --text-color: white;
-}
-
-/* Apply colors */
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-}

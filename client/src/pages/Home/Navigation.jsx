@@ -3,31 +3,21 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../redux/features/authSlice";
 import { useLogoutMutation } from "../../redux/api/userApi";
 import { toast } from "react-toastify";
-import { useState, useEffect } from "react";
-import { FaSun, FaMoon, FaUser, FaSignOutAlt } from "react-icons/fa"; // Importing icons
+import { useState } from "react";
+import { FaUser, FaSignOutAlt } from "react-icons/fa";
+import { MdAdminPanelSettings } from "react-icons/md";
 
 const Navigation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth);
   const [logoutApiCallback] = useLogoutMutation();
-  const [theme, setTheme] = useState("light");
 
-  console.log(userInfo);
+  const [dropdown, setDropdown] = useState(false);
 
-  // Load theme from localStorage on mount
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
-  }, []);
-
-  // Apply the theme to the body class
-  useEffect(() => {
-    document.body.className = theme;
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+  const handleDropdownToggle = () => {
+    setDropdown(!dropdown);
+  };
 
   const handleLogout = async () => {
     try {
@@ -41,13 +31,8 @@ const Navigation = () => {
     }
   };
 
-  // Toggle between light and dark themes
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-  };
-
   return (
-    <div className="flex justify-between items-center h-16 shadow-sm px-6">
+    <div className="flex justify-between items-center h-16 shadow-sm px-6 bg-transparent">
       <Link to="/">
         <h1 className="text-2xl font-semibold tracking-wide">
           Soli Farming Agency
@@ -67,34 +52,67 @@ const Navigation = () => {
         ))}
       </div>
 
-      <div className="flex items-center space-x-4">
-        {userInfo ? (
-          <div className="flex items-center space-x-2">
+      <div className=" relative flex items-center mr-8">
+        <button
+          onClick={handleDropdownToggle}
+          className="flex justify-center items-center focus:outline-none"
+        >
+          {userInfo ? (
+            <h2 className="text-lg font-black tracking-widest">
+              {userInfo.username}
+            </h2>
+          ) : (
+            <></>
+          )}
+
+          {userInfo && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className={`h-4 w-4 ml-1 ${
+                dropdown ? "transform rotate-180" : ""
+              }`}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="white"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d={dropdown ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"}
+              />
+            </svg>
+          )}
+        </button>
+        {dropdown && userInfo && (
+          <div className="absolute top-[2.3vw]  right-0  py-3 rounded-lg flex flex-col  bg-white text-gray-950 px-5 hover:bg-zinc-700 hover:text-white   ">
             {userInfo?.role === "admin" && (
               <Link
                 to="/admin/dashboard"
-                className="text-white font-bold py-2 px-4 rounded"
+                className="flex items-center space-x-1 text-[1.3vw] my-3  hover:text-red-300"
               >
-                Dashboard
+                <MdAdminPanelSettings /> <span>Dashboard</span>
               </Link>
             )}
-            <span className="text-gray-500">{userInfo.username}</span>
+
             <Link
               to="/profile"
-              className="flex items-center space-x-1 hover:underline"
+              className="flex items-center space-x-1 hover:underline text-[1.1vw] my-1"
             >
               <FaUser />
               <span>Profile</span>
             </Link>
             <button
               onClick={handleLogout}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center space-x-1"
+              className="flex items-center space-x-1 hover:underline text-[1.1vw] my-1 "
             >
               <FaSignOutAlt />
               <span>Logout</span>
             </button>
           </div>
-        ) : (
+        )}
+
+        {!userInfo && (
           <>
             <Link className=" font-bold py-2 px-4 rounded" to="/login">
               Login
@@ -107,14 +125,6 @@ const Navigation = () => {
             </Link>
           </>
         )}
-        <button
-          onClick={toggleTheme}
-          className={` ${
-            theme === "light" ? "text-black" : "text-white"
-          }  font-bold py-2 px-4 rounded flex items-center space-x-2`}
-        >
-          {theme === "light" ? <FaMoon /> : <FaSun />}
-        </button>
       </div>
     </div>
   );

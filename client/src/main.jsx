@@ -20,6 +20,7 @@ import Profile from "./pages/User/Profile.jsx";
 import Home from "./pages/Home/Home.jsx";
 import Distributores from "./pages/Distributors/Distributores.jsx";
 import Soil from "./pages/Soil/Soil.jsx";
+import About from "./pages/About.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Home />} />
       <Route path="/distributors" element={<Distributores />} />
       <Route path="/soil" element={<Soil />} />
+      <Route path="/about" element={<About />} />
 
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
