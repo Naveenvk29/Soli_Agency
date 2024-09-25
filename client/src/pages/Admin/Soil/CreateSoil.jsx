@@ -35,7 +35,7 @@ const CreateSoil = () => {
     formData.append("pH", soilData.pH);
     formData.append("temperature", soilData.temperature);
     formData.append("moisture", soilData.moisture);
-    formData.append("SoilImage", soilImage); // Add the image file to form data
+    formData.append("SoilImage", soilImage);
 
     try {
       await createSoil(formData).unwrap(); // Submit the form data

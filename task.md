@@ -24,3 +24,5 @@
 <h4>Admin</h4>
 <li>create or post soil details</li>
 <li>create or post soil distributers</li>
+
+create admessage or something like distruibute asy to pldated soul wihci updata and to add that type of soil in threr list
