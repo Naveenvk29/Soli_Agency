@@ -1,5 +1,5 @@
 import { useGetDistributorByIdQuery } from "../../redux/api/distributorsApi";
-// import { useGetSoilByIdQuery } from "../../redux/api/soilApi";
+
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Loader from "../../components/Loader";

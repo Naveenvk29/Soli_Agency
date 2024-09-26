@@ -17,6 +17,9 @@ const distributorSchema = new mongoose.Schema(
     email: {
       type: String,
     },
+    Description: {
+      type: String,
+    },
     soil: [
       {
         type: mongoose.Schema.Types.ObjectId,

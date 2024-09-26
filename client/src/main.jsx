@@ -20,6 +20,7 @@ import Register from "./pages/Auth/Register.jsx";
 import PrivateRoutes from "./pages/User/PrivateRoutes.jsx";
 import Profile from "./pages/User/Profile.jsx";
 import DistributoresDetails from "./pages/Distributors/DistributoresDetails.jsx";
+import SoilDetails from "./pages/Soil/SoilDetails.jsx";
 
 // public routes
 import Home from "./pages/Home/Home.jsx";
@@ -39,6 +40,7 @@ const router = createBrowserRouter(
     <Route path="" element={<App />}>
       <Route path="/" element={<Home />} />
       <Route path="/distributors" element={<Distributores />} />
+
       <Route path="/soil" element={<Soil />} />
       <Route path="/about" element={<About />} />
 
@@ -48,6 +50,7 @@ const router = createBrowserRouter(
       <Route path="" element={<PrivateRoutes />}>
         <Route path="/profile" element={<Profile />} />
         <Route path="/distributors/:id" element={<DistributoresDetails />} />
+        <Route path="/soil/:id" element={<SoilDetails />} />
       </Route>
       <Route path="" element={<AdminRoutes />}>
         <Route path="/admin/soil/create" element={<CreateSoil />} />
