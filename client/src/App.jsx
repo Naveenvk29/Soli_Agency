@@ -10,7 +10,7 @@ const App = () => {
       <ToastContainer />
       <Navigation />
       <Outlet />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };
