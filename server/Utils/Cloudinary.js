@@ -20,7 +20,6 @@ const uploadImage = async (file, folder, publicIdPrefix) => {
       public_id: `${publicIdPrefix}/${file.filename}`,
       resource_type: "auto",
     });
-    // Use fs.promises.unlink to delete the file after upload
     await fs.unlink(file.path);
     return res;
   } catch (error) {
@@ -30,15 +29,28 @@ const uploadImage = async (file, folder, publicIdPrefix) => {
   }
 };
 
+//upload soil image
 const uploadSoilImage = (file) => uploadImage(file, "soil_images", "soils");
 
-const deleteSoilImage = async (public_id) => {
+//upload
+const uploadProfilePic = (file) =>
+  uploadImage(file, "profile_pictures", "profile_pictures");
+
+const deleteImage = async (publicId) => {
   try {
-    await cloudinary.uploader.destroy(public_id);
+    const res = await cloudinary.uploader.destroy(publicId);
+    return res;
   } catch (error) {
-    console.error(error);
+    console.error(
+      `Failed to delete image with public_id: ${publicId}: ${error.message}`
+    );
     throw new Error("Failed to delete image from Cloudinary");
   }
 };
+// Soil image delete function
+const deleteSoilImage = (publicId) => deleteImage(publicId);
 
-export { uploadSoilImage, deleteSoilImage };
+// Profile picture delete function
+const deleteProfilePic = (publicId) => deleteImage(publicId);
+
+export { uploadSoilImage, uploadProfilePic, deleteSoilImage, deleteProfilePic };

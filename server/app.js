@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 
 import userRoutes from "./Routes/userRoutes.js";
 import soilRoutes from "./Routes/soil.Routes.js";
+import distributorRoutes from "./Routes/distributor.Routes.js";
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(cookieParser());
 
 app.use("/api/users", userRoutes);
 app.use("/api/soils", soilRoutes);
+app.use("/api/distributors", distributorRoutes);
 
 app.get("/test", (req, res) => {
   res.json({ message: "Hello, World!" });
