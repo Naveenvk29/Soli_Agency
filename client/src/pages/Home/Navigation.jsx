@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import { FaUser, FaSignOutAlt } from "react-icons/fa";
 import { MdAdminPanelSettings } from "react-icons/md";
+import logo from "../../assets/logo.png";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -32,14 +33,14 @@ const Navigation = () => {
   };
 
   return (
-    <div className="flex justify-between items-center h-16 shadow-sm px-6 bg-transparent">
-      <Link to="/">
-        <h1 className="text-2xl font-semibold tracking-wide">
-          Soli Farming Agency
-        </h1>
-      </Link>
+    <div className="flex  justify-between items-center h-20 shadow-sm  px-6 bg-transparent ">
+      <div className="w-[24%]">
+        <Link to="/">
+          <img src={logo} alt="" />
+        </Link>
+      </div>
 
-      <div className="flex space-x-6">
+      <div className=" w-[40%] flex space-x-6">
         {["Home", "distributors", "soil", "about"].map((e, i) => (
           <Link
             key={i}
@@ -52,7 +53,7 @@ const Navigation = () => {
         ))}
       </div>
 
-      <div className=" relative flex items-center mr-8">
+      <div className="  relative flex items-center mr-8">
         <button
           onClick={handleDropdownToggle}
           className="flex justify-center items-center focus:outline-none"
