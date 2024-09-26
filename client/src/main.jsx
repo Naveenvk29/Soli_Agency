@@ -19,6 +19,7 @@ import Register from "./pages/Auth/Register.jsx";
 // user routes
 import PrivateRoutes from "./pages/User/PrivateRoutes.jsx";
 import Profile from "./pages/User/Profile.jsx";
+import DistributoresDetails from "./pages/Distributors/DistributoresDetails.jsx";
 
 // public routes
 import Home from "./pages/Home/Home.jsx";
@@ -46,6 +47,7 @@ const router = createBrowserRouter(
 
       <Route path="" element={<PrivateRoutes />}>
         <Route path="/profile" element={<Profile />} />
+        <Route path="/distributors/:id" element={<DistributoresDetails />} />
       </Route>
       <Route path="" element={<AdminRoutes />}>
         <Route path="/admin/soil/create" element={<CreateSoil />} />
