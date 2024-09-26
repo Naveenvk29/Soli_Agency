@@ -31,7 +31,7 @@ const createDistributor = asyncHandler(async (req, res) => {
   try {
     const { name, email, contact, location, soil, description } = req.body;
     const uploadProfileImage = req.file;
-    console.log(req.file);
+    // console.log(req.file);
 
     console.log(uploadProfileImage);
 
@@ -66,7 +66,6 @@ const createDistributor = asyncHandler(async (req, res) => {
 const updateDistributor = asyncHandler(async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, email, contact, location } = req.body;
     const distributor = await Distributor.findById(id);
     if (!distributor) {
       return res.status(404).json({ message: "Distributor not found" });
