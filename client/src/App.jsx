@@ -6,7 +6,7 @@ import Footer from "./pages/Home/Footer";
 
 const App = () => {
   return (
-    <div className="p-5">
+    <div>
       <ToastContainer />
       <Navigation />
       <Outlet />

@@ -33,7 +33,7 @@ const Navigation = () => {
   };
 
   return (
-    <div className="flex  justify-between items-center h-20 shadow-sm  px-6 bg-transparent ">
+    <div className="flex  justify-between items-center h-30 shadow-sm  px-6 bg-transparent ">
       <div className="w-[24%]">
         <Link to="/">
           <img src={logo} alt="" />
