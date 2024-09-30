@@ -53,7 +53,7 @@ const createDistributor = asyncHandler(async (req, res) => {
       description,
     });
     const distirbutor = await distributorinfo.save();
-    console.log(distirbutor);
+    // console.log(distirbutor);
 
     res.status(201).json(distirbutor);
   } catch (error) {

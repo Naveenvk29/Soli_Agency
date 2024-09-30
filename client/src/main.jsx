@@ -39,20 +39,24 @@ import AdminDashbord from "./pages/Admin/Dashboard/AdminDashbord.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="" element={<App />}>
+      {/* public routes */}
+
       <Route path="/" element={<Home />} />
       <Route path="/distributors" element={<Distributores />} />
-
       <Route path="/soil" element={<Soil />} />
       <Route path="/about" element={<About />} />
-
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+
+      {/* private routes */}
 
       <Route path="" element={<PrivateRoutes />}>
         <Route path="/profile" element={<Profile />} />
         <Route path="/distributors/:id" element={<DistributoresDetails />} />
         <Route path="/soil/:id" element={<SoilDetails />} />
       </Route>
+
+      {/* admin routes */}
       <Route path="" element={<AdminRoutes />}>
         <Route path="/admin/soil/create" element={<CreateSoil />} />
         <Route path="/admin/soil/update/:id" element={<UpdateSoil />} />
