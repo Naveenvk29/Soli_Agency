@@ -23,7 +23,7 @@ const distributorsApi = apiSlice.injectEndpoints({
       }),
     }),
     updateDistributor: builder.mutation({
-      query: (id, body) => ({
+      query: ({ id, body }) => ({
         url: `${DISTRIBUTORS_URL}/${id}`,
         method: "PUT",
         body: body,

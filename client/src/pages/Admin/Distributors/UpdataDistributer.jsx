@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import Loader from "../../../components/Loader";
 
 const UpdateDistributor = () => {
-  const { id } = useParams(); // Get distributor ID from route params
+  const { id } = useParams();
   const [distributorData, setDistributorData] = useState({
     name: "",
     email: "",
@@ -24,21 +24,6 @@ const UpdateDistributor = () => {
   const [updateDistributor, { isLoading }] = useUpdateDistributorMutation();
   const navigate = useNavigate();
   const { deleteDistributor } = useDeleteDistributorMutation();
-
-  useEffect(() => {
-    const fetchDistributorData = async () => {
-      try {
-        const response = await fetch(`/api/distributors/${id}`);
-        const data = await response.json();
-        setDistributorData(data);
-      } catch (error) {
-        console.error("Failed to fetch distributor data:", error);
-        toast.error("Failed to fetch distributor data.");
-      }
-    };
-
-    fetchDistributorData();
-  }, [id]);
 
   useEffect(() => {
     if (soilData) {
@@ -84,18 +69,13 @@ const UpdateDistributor = () => {
     if (distributorData.profilePic) {
       formData.append("profilePic", distributorData.profilePic);
     }
-
     distributorData.soil.forEach((soil) => {
       formData.append("soil", soil);
     });
-
-    // Log the FormData entries
-    console.log("FormData to be submitted:", Array.from(formData.entries()));
-
     try {
       await updateDistributor({ id: id, formData }).unwrap();
       toast.success("Distributor updated successfully!");
-      navigate("/distributors");
+      navigate("/admin/distributors-list");
     } catch (error) {
       console.error("Update failed:", error);
       toast.error("Failed to update distributor!");
@@ -117,7 +97,15 @@ const UpdateDistributor = () => {
 
   return (
     <div className="max-w-screen-lg mx-auto my-10">
-      <h1 className="text-4xl text-center font-bold my-5 capitalize">
+      <div>
+        <h2
+          className="text-lg hover:underline hover:text-blue-500"
+          onClick={() => navigate(-1)}
+        >
+          Go back
+        </h2>
+      </div>
+      <h1 className="text-4xl text-center font-bold mb-5 capitalize">
         Update Distributor
       </h1>
       <form onSubmit={handleSubmit}>
@@ -221,32 +209,19 @@ const UpdateDistributor = () => {
             onChange={handleProfilePicChange}
           />
         </div>
-
-        <div className="my-6 flex items-center justify-around w-full">
-          <label className="text-sm font-bold mb-2 uppercase">Soil Type</label>
-          <div className="relative w-[20vw]">
-            <div className="border border-gray-300 p-3 rounded-md cursor-pointer bg-white">
-              {distributorData.soil.length > 0
-                ? `Selected: ${distributorData.soil.length} item(s)`
-                : "Select Soil Type"}
-            </div>
-            <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
-              {soilList.map((soil) => (
-                <label
-                  key={soil._id}
-                  className="flex items-center p-2 space-x-2 cursor-pointer hover:bg-gray-100"
-                >
-                  <input
-                    type="checkbox"
-                    value={soil._id}
-                    checked={distributorData.soil.includes(soil._id)}
-                    onChange={() => handleSoilSelection(soil._id)}
-                    className="form-checkbox"
-                  />
-                  <span className="text-gray-700">{soil.name}</span>
-                </label>
-              ))}
-            </div>
+        <div className="my-6 mx-auto flex flex-col w-[95%]">
+          <label className="text-2xl font-bold mb-2">Soil Type</label>
+          <div className="flex text-lg gap-5  ">
+            {soilList.map((soil) => (
+              <label key={soil._id} className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={distributorData.soil.includes(soil._id)}
+                  onChange={() => handleSoilSelection(soil._id)}
+                />
+                <span className="ml-2 my-2">{soil.name}</span>
+              </label>
+            ))}
           </div>
         </div>
 

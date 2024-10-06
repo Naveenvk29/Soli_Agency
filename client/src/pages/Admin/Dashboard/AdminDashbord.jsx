@@ -1,7 +1,12 @@
-import React from "react";
-
+import AsideBar from "./Dash-components/AsideBar";
 const AdminDashbord = () => {
-  return <div>AdminDashbord</div>;
+  return (
+    <div>
+      <div className="flex flex-row h-screen ">
+        <AsideBar />
+      </div>
+    </div>
+  );
 };
 
 export default AdminDashbord;

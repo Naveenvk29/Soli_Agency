@@ -50,6 +50,12 @@ const CreateSoil = () => {
 
   return (
     <div className="max-w-screen-lg mx-auto my-10">
+      <h2
+        className="text-lg hover:underline hover:text-blue-500"
+        onClick={() => navigate(-1)}
+      >
+        Go back
+      </h2>
       <h1 className="text-4xl text-center font-bold my-5">Create Soil</h1>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="my-6 flex items-center justify-around w-full">

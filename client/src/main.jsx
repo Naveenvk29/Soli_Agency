@@ -35,6 +35,7 @@ import UpdateSoil from "./pages/Admin/Soil/UpdateSoil.jsx";
 import CreateDistributer from "./pages/Admin/Distributors/CreateDistributer.jsx";
 import UpdateDistributer from "./pages/Admin/Distributors/UpdataDistributer.jsx";
 import AdminDashbord from "./pages/Admin/Dashboard/AdminDashbord.jsx";
+import DistributorsList from "./pages/Admin/Distributors/DistributorsList.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -64,6 +65,7 @@ const router = createBrowserRouter(
           path="/admin/distributors/create"
           element={<CreateDistributer />}
         />
+        <Route path="/admin/distributors-list" element={<DistributorsList />} />
         <Route
           path="/admin/distributors/update/:id"
           element={<UpdateDistributer />}

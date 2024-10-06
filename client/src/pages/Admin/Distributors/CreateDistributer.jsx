@@ -68,7 +68,7 @@ const CreateDistributer = () => {
     try {
       await createDistributor(formData).unwrap();
       toast.success("Distributor created successfully!");
-      navigate("/distributors");
+      navigate("/admin/distributors-list");
     } catch (error) {
       console.error(error);
       toast.error("Failed to create distributor!");
@@ -77,6 +77,14 @@ const CreateDistributer = () => {
 
   return (
     <div className="max-w-screen-lg mx-auto my-10">
+      <div>
+        <h2
+          className="text-lg hover:underline hover:text-blue-500"
+          onClick={() => navigate(-1)}
+        >
+          Go back
+        </h2>
+      </div>
       <h1 className="text-4xl text-center font-bold my-5 capitalize">
         Create Distributor
       </h1>
