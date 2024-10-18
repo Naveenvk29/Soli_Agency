@@ -1,5 +1,5 @@
 import { useGetSoilByIdQuery } from "../../redux/api/soilApi";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
 
 const SoilDetails = () => {
@@ -7,16 +7,14 @@ const SoilDetails = () => {
   const { data: soil, isLoading, isError } = useGetSoilByIdQuery(id);
   const navigate = useNavigate();
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  if (isLoading) return <Loader />;
 
   if (isError || !soil) {
     return (
       <div className="max-w-screen-lg mx-auto mt-10">
         <h3
           onClick={() => navigate(-1)}
-          className="my-5 text-lg hover:underline hover:text-gray-400"
+          className="my-5 text-lg underline cursor-pointer text-blue-500 hover:text-blue-700"
         >
           Go back
         </h3>
@@ -28,15 +26,15 @@ const SoilDetails = () => {
   }
 
   return (
-    <div className="max-w-screen-lg mx-auto mt-5">
+    <div className="max-w-screen-lg mx-auto mt-5 p-5">
       <h3
         onClick={() => navigate(-1)}
-        className="my-5 text-lg hover:underline hover:text-gray-400 cursor-pointer"
+        className="my-5 text-lg underline cursor-pointer text-blue-500 hover:text-blue-700"
       >
         Go back
       </h3>
       <h1 className="text-3xl my-10 font-bold">Soil Details</h1>
-      <div className="w-full flex flex-col md:flex-row gap-10">
+      <div className="w-full flex flex-col-reverse  md:flex-row gap-10">
         <div className="w-full md:w-[40%] space-y-4">
           <p>
             <strong>Name:</strong> {soil.name}
