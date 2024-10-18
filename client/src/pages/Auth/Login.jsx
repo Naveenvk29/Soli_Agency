@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,32 +26,34 @@ const Login = () => {
       toast.error(error.message);
     }
   };
+
   useEffect(() => {
     if (userInfo) {
       navigate("/");
     }
   }, [userInfo, navigate]);
+
   return (
-    <div className="w-[60%] ml-[35%] mt-[6%]">
-      <div className="w-full h-full ">
-        <h1 className="text-3xl font-bold my-4 ml-[18%] underline">Login</h1>
+    <div className="max-w-screen-xl mx-auto mt-10 px-5">
+      <div className="w-full lg:w-1/2 xl:w-1/3 mx-auto p-8 bg-white text-black shadow-md rounded-lg">
+        <h1 className="text-3xl font-bold mb-6 text-center">Login</h1>
         <form onSubmit={handleLogin}>
-          <div className="my-5 flex flex-col">
-            <label className="text-lg font-semibold mb-5 ">Email</label>
+          <div className="mb-5">
+            <label className="text-lg font-semibold mb-2 block">Email</label>
             <input
               type="email"
               placeholder="Enter your email"
-              className=" w-[30vw] text-black font-medium outline-none border border-gray-300 p-3  rounded-md"
+              className="w-full p-3 text-black font-medium outline-none border border-gray-300 rounded-md"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="my-5 flex flex-col">
-            <label className="text-lg font-semibold mb-5 "> Password</label>
+          <div className="mb-5">
+            <label className="text-lg font-semibold mb-2 block">Password</label>
             <input
               type="password"
               placeholder="Enter your password"
-              className=" w-[30vw] text-black font-medium outline-none border border-gray-300 p-3  rounded-md"
+              className="w-full p-3 text-black font-medium outline-none border border-gray-300 rounded-md"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -59,17 +62,15 @@ const Login = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="bg-blue-900 text-lg font-semibold px-8 py-2 my-5 hover:bg-blue-700 rounded-lg"
+            className="w-full bg-blue-900 text-lg font-semibold text-white py-3 rounded-lg hover:bg-blue-700 transition-colors"
           >
             {isLoading ? <Loader /> : "Login"}
           </button>
         </form>
-        <p className="text-lg font-medium ">
+
+        <p className="text-center text-lg font-medium mt-5">
           Don't have an account?{" "}
-          <Link
-            className="ml-2 hover:underline hover:text-blue-800"
-            to="/register"
-          >
+          <Link className="ml-2 text-blue-500 hover:underline" to="/register">
             Register
           </Link>
         </p>
