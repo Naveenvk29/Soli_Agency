@@ -14,7 +14,7 @@ const DistributorsList = () => {
   }
 
   return (
-    <div className="max-w-screen-lg mx-auto py-2 ">
+    <div className="max-w-screen-lg mx-auto py-2 p-3 ">
       <div className="my-2">
         <h2
           className="text-lg hover:underline hover:text-blue-500"

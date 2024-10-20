@@ -1,6 +1,6 @@
 import { useUpdateSoilMutation } from "../../../redux/api/soilApi";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom"; // useParams to get soilId
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const UpdateSoil = ({ initialData }) => {
@@ -45,8 +45,28 @@ const UpdateSoil = ({ initialData }) => {
     }
   };
 
+  const validateForm = () => {
+    if (!soilData.name || !soilData.type || !soilData.texture) {
+      toast.error("Please fill in all required fields.");
+      return false;
+    }
+
+    if (soilData.pH < 0 || soilData.pH > 14) {
+      toast.error("pH level must be between 0 and 14.");
+      return false;
+    }
+
+    if (soilData.humidity < 0 || soilData.humidity > 100) {
+      toast.error("Humidity must be between 0 and 100.");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
 
     const formData = new FormData();
     formData.append("name", soilData.name);
@@ -67,7 +87,9 @@ const UpdateSoil = ({ initialData }) => {
       navigate("/soil");
     } catch (error) {
       console.error(error);
-      toast.error("Failed to update soil. Please try again.");
+      const errorMessage =
+        error?.data?.message || "Failed to update soil. Please try again.";
+      toast.error(errorMessage);
     }
   };
 
@@ -125,17 +147,17 @@ const UpdateSoil = ({ initialData }) => {
   );
 
   return (
-    <div className="max-w-screen-lg mx-auto my-10">
+    <div className="max-w-screen-lg mx-auto my-10 px-4">
       <h2
-        className="text-lg hover:underline hover:text-blue-500"
+        className="text-lg hover:underline hover:text-blue-500 cursor-pointer"
         onClick={() => navigate(-1)}
       >
         Go back
       </h2>
       <h1 className="text-4xl text-center font-bold my-5">Update Soil</h1>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <div className="my-6 flex items-center justify-around w-full">
-          <div className="flex flex-col w-[45%]">
+        <div className="my-6 flex flex-col md:flex-row md:justify-around w-full">
+          <div className="flex flex-col w-full md:w-[45%]">
             <label className="text-sm font-bold mb-2 uppercase">Name</label>
             <input
               className="text-gray-700 px-3 py-2 rounded shadow focus:outline-none focus:ring-blue-500"
@@ -147,7 +169,7 @@ const UpdateSoil = ({ initialData }) => {
               }
             />
           </div>
-          <div className="flex flex-col w-[45%]">
+          <div className="flex flex-col w-full md:w-[45%] mt-4 md:mt-0">
             <label className="text-sm font-bold mb-2 uppercase">Type</label>
             <input
               className="px-3 py-2 text-gray-700 border rounded shadow focus:outline-none focus:ring-blue-500"
@@ -161,8 +183,8 @@ const UpdateSoil = ({ initialData }) => {
           </div>
         </div>
 
-        <div className="my-6 flex items-center justify-around w-full">
-          <div className="flex flex-col w-[45%]">
+        <div className="my-6 flex flex-col md:flex-row md:justify-around w-full">
+          <div className="flex flex-col w-full md:w-[45%]">
             <label className="text-sm font-bold mb-2 uppercase">Texture</label>
             <input
               className="text-gray-700 px-3 py-2 rounded shadow focus:outline-none focus:ring-blue-500"
@@ -174,7 +196,7 @@ const UpdateSoil = ({ initialData }) => {
               }
             />
           </div>
-          <div className="flex flex-col w-[45%]">
+          <div className="flex flex-col w-full md:w-[45%] mt-4 md:mt-0">
             <label className="text-sm font-bold mb-2 uppercase">Humidity</label>
             <input
               className="px-3 py-2 text-gray-700 border rounded shadow focus:outline-none focus:ring-blue-500"
@@ -188,8 +210,8 @@ const UpdateSoil = ({ initialData }) => {
           </div>
         </div>
 
-        <div className="my-6 flex items-center justify-around w-full">
-          <div className="flex flex-col w-[45%]">
+        <div className="my-6 flex flex-col md:flex-row md:justify-around w-full">
+          <div className="flex flex-col w-full md:w-[45%]">
             <label className="text-sm font-bold mb-2 uppercase">pH Level</label>
             <input
               className="text-gray-700 px-3 py-2 rounded shadow focus:outline-none focus:ring-blue-500"
@@ -199,7 +221,7 @@ const UpdateSoil = ({ initialData }) => {
               onChange={(e) => setSoilData({ ...soilData, pH: e.target.value })}
             />
           </div>
-          <div className="flex flex-col w-[45%]">
+          <div className="flex flex-col w-full md:w-[45%] mt-4 md:mt-0">
             <label className="text-sm font-bold mb-2 uppercase">Moisture</label>
             <input
               className="px-3 py-2 text-gray-700 border rounded shadow focus:outline-none focus:ring-blue-500"
@@ -213,8 +235,8 @@ const UpdateSoil = ({ initialData }) => {
           </div>
         </div>
 
-        <div className="my-6 flex items-center justify-around w-full">
-          <div className="flex flex-col w-[45%]">
+        <div className="my-6 flex flex-col md:flex-row md:justify-around w-full">
+          <div className="flex flex-col w-full md:w-[45%]">
             <label className="text-sm font-bold mb-2 uppercase">
               Temperature
             </label>
@@ -229,7 +251,7 @@ const UpdateSoil = ({ initialData }) => {
             />
           </div>
 
-          <div className="flex flex-col w-[45%]">
+          <div className="flex flex-col w-full md:w-[45%] mt-4 md:mt-0">
             <label className="text-sm font-bold mb-2 uppercase">
               Soil Image
             </label>
@@ -248,8 +270,8 @@ const UpdateSoil = ({ initialData }) => {
           </div>
         </div>
 
-        <div className="my-6 flex items-center justify-around w-full">
-          <div className="flex flex-col w-[40%]">
+        <div className="my-6 flex flex-col md:flex-row md:justify-around w-full">
+          <div className="flex flex-col w-full md:w-[40%]">
             {renderDynamicFields(
               soilData.nutrients,
               (newNutrients) =>
@@ -257,7 +279,7 @@ const UpdateSoil = ({ initialData }) => {
               "Nutrients"
             )}
           </div>
-          <div className="flex flex-col w-[40%]">
+          <div className="flex flex-col w-full md:w-[40%]">
             {renderDynamicFields(
               soilData.fertility,
               (newFertility) =>
@@ -270,6 +292,7 @@ const UpdateSoil = ({ initialData }) => {
         <button
           className="px-6 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-500 shadow"
           type="submit"
+          disabled={isLoading}
         >
           {isLoading ? "Updating Soil..." : "Update Soil"}
         </button>

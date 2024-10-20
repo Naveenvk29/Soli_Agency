@@ -75,7 +75,7 @@ const Navigation = () => {
       <div
         className={`${
           menuOpen ? "flex" : "hidden"
-        } md:flex w-full  md:w-[40%] md:space-x-6 flex-col md:flex-row absolute md:relative top-20 left-0 md:top-auto md:left-auto bg-gray-800 md:bg-transparent text-white  p-4 md:p-0`}
+        } md:flex w-full z-40  md:w-[40%] md:space-x-6 flex-col md:flex-row absolute md:relative top-20 left-0 md:top-auto md:left-auto bg-gray-800 md:bg-transparent text-white  p-4 md:p-0`}
       >
         {["Home", "distributors", "soil", "about"].map((e, i) => (
           <Link

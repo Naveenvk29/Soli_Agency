@@ -8,7 +8,7 @@ const SoilList = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="max-w-screen-lg mx-auto py-8">
+    <div className="max-w-screen-lg mx-auto p-5">
       <div className="my-2">
         <h2
           className="text-lg hover:underline hover:text-blue-500"

@@ -1,14 +1,13 @@
 import AsideBar from "./Dash-components/AsideBar";
 import Main from "./Dash-components/Main";
-const AdminDashbord = () => {
+
+const AdminDashboard = () => {
   return (
-    <div>
-      <div className="flex gap-5 h-screen ">
-        <AsideBar />
-        <Main />
-      </div>
+    <div className=" relative flex flex-col md:flex-row h-screen overflow-hidden">
+      <AsideBar />
+      <Main />
     </div>
   );
 };
 
-export default AdminDashbord;
+export default AdminDashboard;

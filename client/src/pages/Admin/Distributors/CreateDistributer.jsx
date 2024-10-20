@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../../../components/Loader";
 
-const CreateDistributer = () => {
+const CreateDistributor = () => {
   const [distributorData, setDistributorData] = useState({
     name: "",
     email: "",
@@ -18,7 +18,7 @@ const CreateDistributer = () => {
 
   const [soilList, setSoilList] = useState([]);
   const { data: soilData } = useGetSoilQuery();
-  const [createDistributor, { isLoading }] = useCreateDistributorMutation(); // <-- Correct use here
+  const [createDistributor, { isLoading }] = useCreateDistributorMutation();
   const navigate = useNavigate();
   const [isSoilDropdownOpen, setIsSoilDropdownOpen] = useState(false);
 
@@ -34,6 +34,7 @@ const CreateDistributer = () => {
       profilePic: e.target.files[0],
     });
   };
+
   const handleSoilSelection = (soilId) => {
     const updatedSoil = [...distributorData.soil];
     if (updatedSoil.includes(soilId)) {
@@ -48,6 +49,7 @@ const CreateDistributer = () => {
       });
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -58,7 +60,6 @@ const CreateDistributer = () => {
     formData.append("location", distributorData.location);
     formData.append("profilePic", distributorData.profilePic);
 
-    // Append each soil type separately to FormData
     distributorData.soil.forEach((soil) => {
       formData.append("soil", soil);
     });
@@ -76,7 +77,7 @@ const CreateDistributer = () => {
   };
 
   return (
-    <div className="max-w-screen-lg mx-auto my-10">
+    <div className="max-w-screen-md mx-auto my-10 p-5 overflow-hidden">
       <div>
         <h2
           className="text-lg hover:underline hover:text-blue-500"
@@ -89,8 +90,8 @@ const CreateDistributer = () => {
         Create Distributor
       </h1>
       <form onSubmit={handleSubmit}>
-        <div className="my-6 flex items-center justify-around w-full">
-          <div className="flex flex-col w-[45%]">
+        <div className="my-6 flex flex-col md:flex-row items-center justify-between w-full">
+          <div className="flex flex-col w-full md:w-[45%]">
             <label className="text-sm font-bold mb-2 uppercase">
               Distributor Name
             </label>
@@ -107,7 +108,7 @@ const CreateDistributer = () => {
               }
             />
           </div>
-          <div className="flex flex-col w-[45%]">
+          <div className="flex flex-col w-full md:w-[45%] mt-4 md:mt-0">
             <label className="text-sm font-bold mb-2 uppercase">Email</label>
             <input
               className="px-3 py-2 text-gray-700 border rounded shadow outline-none"
@@ -123,8 +124,8 @@ const CreateDistributer = () => {
             />
           </div>
         </div>
-        <div className="my-6 flex items-center justify-around w-full">
-          <div className="flex flex-col w-[45%]">
+        <div className="my-6 flex flex-col md:flex-row items-center justify-between w-full">
+          <div className="flex flex-col w-full md:w-[45%]">
             <label className="text-sm font-bold mb-2 uppercase">
               Contact Number
             </label>
@@ -141,7 +142,7 @@ const CreateDistributer = () => {
               }
             />
           </div>
-          <div className="flex flex-col w-[45%]">
+          <div className="flex flex-col w-full md:w-[45%] mt-4 md:mt-0">
             <label className="text-sm font-bold mb-2 uppercase">Location</label>
             <input
               className="px-3 py-2 text-gray-700 border rounded shadow outline-none"
@@ -191,7 +192,7 @@ const CreateDistributer = () => {
         </div>
         <div className="my-6 flex items-center justify-around w-full">
           <label className="text-sm font-bold mb-2 uppercase">Soil Type</label>
-          <div className="relative w-[20vw]">
+          <div className="relative w-full md:w-[20vw]">
             <div
               className="border text-black border-gray-300 p-3 rounded-md cursor-pointer bg-white"
               onClick={() => setIsSoilDropdownOpen(!isSoilDropdownOpen)}
@@ -223,13 +224,13 @@ const CreateDistributer = () => {
           </div>
         </div>
 
-        <div className="my-6 flex items-center justify-center gap-40 w-full">
+        <div className="my-6 flex items-center justify-center gap-4 w-full">
           {isLoading ? (
             <Loader />
           ) : (
             <button
               type="submit"
-              className="bg-green-500 px-8 py-2 font-semibold rounded-lg "
+              className="bg-green-500 px-8 py-2 font-semibold rounded-lg"
             >
               Create
             </button>
@@ -247,4 +248,4 @@ const CreateDistributer = () => {
   );
 };
 
-export default CreateDistributer;
+export default CreateDistributor;

@@ -16,14 +16,14 @@ const UpdateDistributor = () => {
     contact: "",
     location: "",
     soil: [],
-    profilePic: "",
+    profilePic: null,
     description: "",
   });
   const [soilList, setSoilList] = useState([]);
   const { data: soilData } = useGetSoilQuery();
   const [updateDistributor, { isLoading }] = useUpdateDistributorMutation();
   const navigate = useNavigate();
-  const { deleteDistributor } = useDeleteDistributorMutation();
+  const [deleteDistributor] = useDeleteDistributorMutation();
 
   useEffect(() => {
     if (soilData) {
@@ -36,24 +36,16 @@ const UpdateDistributor = () => {
   };
 
   const handleSoilSelection = (soilId) => {
-    const updatedSoil = [...distributorData.soil];
-    if (updatedSoil.includes(soilId)) {
-      setDistributorData({
-        ...distributorData,
-        soil: updatedSoil.filter((id) => id !== soilId),
-      });
-    } else {
-      setDistributorData({
-        ...distributorData,
-        soil: [...updatedSoil, soilId],
-      });
-    }
+    const updatedSoil = distributorData.soil.includes(soilId)
+      ? distributorData.soil.filter((id) => id !== soilId)
+      : [...distributorData.soil, soilId];
+
+    setDistributorData({ ...distributorData, soil: updatedSoil });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate soil selection
     if (distributorData.soil.length === 0) {
       toast.error("Please select at least one soil type.");
       return;
@@ -72,8 +64,9 @@ const UpdateDistributor = () => {
     distributorData.soil.forEach((soil) => {
       formData.append("soil", soil);
     });
+
     try {
-      await updateDistributor({ id: id, formData }).unwrap();
+      await updateDistributor({ id, formData }).unwrap();
       toast.success("Distributor updated successfully!");
       navigate("/admin/distributors-list");
     } catch (error) {
@@ -85,9 +78,9 @@ const UpdateDistributor = () => {
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this distributor?")) {
       try {
-        await deleteDistributor(id).unwrap(); // Pass the id directly
+        await deleteDistributor(id).unwrap();
         toast.success("Distributor deleted successfully!");
-        navigate("/distributors");
+        navigate("/admin/distributors-list");
       } catch (error) {
         console.error("Delete failed:", error);
         toast.error("Failed to delete distributor!");
@@ -96,41 +89,37 @@ const UpdateDistributor = () => {
   };
 
   return (
-    <div className="max-w-screen-lg mx-auto my-10">
-      <div>
-        <h2
-          className="text-lg hover:underline hover:text-blue-500"
-          onClick={() => navigate(-1)}
-        >
-          Go back
-        </h2>
-      </div>
-      <h1 className="text-4xl text-center font-bold mb-5 capitalize">
+    <div className="max-w-screen-lg mx-auto my-10 p-4">
+      <h2
+        className="text-lg hover:underline hover:text-blue-500 cursor-pointer"
+        onClick={() => navigate(-1)}
+      >
+        Go back
+      </h2>
+      <h1 className="text-4xl text-center font-bold my-5 capitalize">
         Update Distributor
       </h1>
       <form onSubmit={handleSubmit}>
-        <div className="my-6 flex items-center justify-around w-full">
-          <div className="flex flex-col w-[45%]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex flex-col">
             <label className="text-sm font-bold mb-2 uppercase">
               Distributor Name
             </label>
             <input
-              className="text-gray-700 px-3 py-2 rounded shadow outline-none"
+              className="text-gray-700 px-3 py-2 border rounded shadow outline-none"
               type="text"
               placeholder="Name"
               value={distributorData.name}
               onChange={(e) =>
-                setDistributorData({
-                  ...distributorData,
-                  name: e.target.value,
-                })
+                setDistributorData({ ...distributorData, name: e.target.value })
               }
+              required
             />
           </div>
-          <div className="flex flex-col w-[45%]">
+          <div className="flex flex-col">
             <label className="text-sm font-bold mb-2 uppercase">Email</label>
             <input
-              className="px-3 py-2 text-gray-700 border rounded shadow outline-none"
+              className="text-gray-700 px-3 py-2 border rounded shadow outline-none"
               type="email"
               placeholder="Email"
               value={distributorData.email}
@@ -140,16 +129,17 @@ const UpdateDistributor = () => {
                   email: e.target.value,
                 })
               }
+              required
             />
           </div>
         </div>
-        <div className="my-6 flex items-center justify-around w-full">
-          <div className="flex flex-col w-[45%]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+          <div className="flex flex-col">
             <label className="text-sm font-bold mb-2 uppercase">
               Contact Number
             </label>
             <input
-              className="px-3 py-2 text-gray-700 border rounded shadow outline-none"
+              className="text-gray-700 px-3 py-2 border rounded shadow outline-none"
               type="text"
               placeholder="Contact number"
               value={distributorData.contact}
@@ -159,12 +149,13 @@ const UpdateDistributor = () => {
                   contact: e.target.value,
                 })
               }
+              required
             />
           </div>
-          <div className="flex flex-col w-[45%]">
+          <div className="flex flex-col">
             <label className="text-sm font-bold mb-2 uppercase">Location</label>
             <input
-              className="px-3 py-2 text-gray-700 border rounded shadow outline-none"
+              className="text-gray-700 px-3 py-2 border rounded shadow outline-none"
               type="text"
               placeholder="Location"
               value={distributorData.location}
@@ -174,10 +165,11 @@ const UpdateDistributor = () => {
                   location: e.target.value,
                 })
               }
+              required
             />
           </div>
         </div>
-        <div className="my-6 mx-auto flex flex-col w-[95%]">
+        <div className="my-6">
           <label
             htmlFor="description"
             className="text-sm font-bold mb-2 uppercase"
@@ -186,7 +178,7 @@ const UpdateDistributor = () => {
           </label>
           <textarea
             id="description"
-            className="text-gray-700 px-3 py-2 rounded shadow outline-none w-full border-none"
+            className="text-gray-700 px-3 py-2 border rounded shadow outline-none w-full"
             placeholder="Description"
             value={distributorData.description}
             onChange={(e) =>
@@ -196,22 +188,23 @@ const UpdateDistributor = () => {
               })
             }
             rows={4}
+            required
           />
         </div>
-        <div className="my-6 flex items-center justify-around w-full">
-          <label className="text-sm font-bold mb-2 uppercase bg-blue-500 px-3 py-2 rounded-lg text-black ">
+        <div className="my-6">
+          <label className="text-sm font-bold mb-2 uppercase">
             Profile Picture
           </label>
           <input
-            className="px-3 py-2 border rounded shadow bg-white text-neutral-600 "
+            className="px-3 py-2 border rounded shadow bg-white text-neutral-600"
             type="file"
             accept="image/*"
             onChange={handleProfilePicChange}
           />
         </div>
-        <div className="my-6 mx-auto flex flex-col w-[95%]">
+        <div className="my-6">
           <label className="text-2xl font-bold mb-2">Soil Type</label>
-          <div className="flex text-lg gap-5  ">
+          <div className="flex flex-wrap gap-4">
             {soilList.map((soil) => (
               <label key={soil._id} className="flex items-center">
                 <input
@@ -219,13 +212,12 @@ const UpdateDistributor = () => {
                   checked={distributorData.soil.includes(soil._id)}
                   onChange={() => handleSoilSelection(soil._id)}
                 />
-                <span className="ml-2 my-2">{soil.name}</span>
+                <span className="ml-2">{soil.name}</span>
               </label>
             ))}
           </div>
         </div>
-
-        <div className="my-6 flex items-center justify-center gap-40 w-full">
+        <div className="my-6 flex items-center justify-between w-full">
           {isLoading ? (
             <Loader />
           ) : (
@@ -236,23 +228,23 @@ const UpdateDistributor = () => {
               >
                 Update
               </button>
+              <button
+                type="button"
+                className="bg-red-500 px-8 py-2 font-semibold rounded-lg"
+                onClick={handleDelete}
+                disabled={isLoading}
+              >
+                Delete
+              </button>
+              <button
+                type="button"
+                className="bg-red-500 px-8 py-2 font-semibold rounded-lg"
+                onClick={() => navigate("/admin/distributors-list")}
+              >
+                Cancel
+              </button>
             </>
           )}
-          <button
-            type="submit"
-            className="bg-red-500 px-8 py-2 font-semibold rounded-lg"
-            onClick={handleDelete}
-            disabled={isLoading}
-          >
-            Delete
-          </button>
-          <button
-            type="button"
-            className="bg-red-500 px-8 py-2 font-semibold rounded-lg"
-            onClick={() => navigate("/distributors")}
-          >
-            Cancel
-          </button>
         </div>
       </form>
     </div>

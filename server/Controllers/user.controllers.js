@@ -1,6 +1,6 @@
 import User from "../Model/user.model.js";
 import asyncHandler from "../Utils/asyncHandler.js";
-import createToken from "../utils/createToken.js";
+import createToken from "../Utils/createToken.js";
 
 // create a new user
 const registerUser = asyncHandler(async (req, res) => {
