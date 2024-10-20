@@ -34,8 +34,8 @@ const SoilDetails = () => {
         Go back
       </h3>
       <h1 className="text-3xl my-10 font-bold">Soil Details</h1>
-      <div className="w-full flex flex-col-reverse  md:flex-row gap-10">
-        <div className="w-full md:w-[40%] space-y-4">
+      <div className="flex flex-col-reverse md:flex-row gap-10">
+        <div className="flex-1 space-y-4">
           <p>
             <strong>Name:</strong> {soil.name}
           </p>
@@ -81,9 +81,9 @@ const SoilDetails = () => {
             <strong>CEC:</strong> {soil.fertility?.CEC || "N/A"}
           </p>
         </div>
-        <div className="w-full md:w-[60%]">
+        <div className="flex-1">
           <img
-            className="w-full object-cover rounded-lg"
+            className="w-full h-auto object-cover rounded-lg"
             src={soil.SoilImage?.url || "/default-image.png"}
             alt={soil.name}
           />

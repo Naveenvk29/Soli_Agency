@@ -60,108 +60,110 @@ const Profile = () => {
   };
 
   return (
-    <div className="w-[60%] ml-[35%]">
-      <div className="w-full h-full mt-5 ">
-        <h1 className="text-3xl font-bold my-4 ml-[18%] underline">Profile</h1>
+    <div className="w-full max-w-lg mx-auto px-4 md:px-0">
+      <div className="w-full h-full mt-5">
+        <h1 className="text-3xl font-bold my-4 text-center underline">
+          Profile
+        </h1>
         {isLoading && <Loader />} {/* Display Loader while updating */}
-        <form onSubmit={handleSubmit}>
-          <div className="my-3 flex flex-col">
-            <label className="text-lg font-semibold mb-4">Username</label>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="flex flex-col">
+            <label className="text-lg font-semibold mb-2">Username</label>
             <input
               type="text"
               placeholder="Enter your username"
-              className="w-[30vw] text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
+              className="w-full text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 
-          <div className="my-3 flex flex-col">
-            <label className="text-lg font-semibold mb-4">Email</label>
+          <div className="flex flex-col">
+            <label className="text-lg font-semibold mb-2">Email</label>
             <input
               type="email"
               placeholder="Enter your email"
-              className="w-[30vw] text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
+              className="w-full text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
-          <div className="my-3 flex flex-col">
-            <label className="text-lg font-semibold mb-4">Phone</label>
+          <div className="flex flex-col">
+            <label className="text-lg font-semibold mb-2">Phone</label>
             <input
               type="text"
               placeholder="Enter your phone number"
-              className="w-[30vw] text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
+              className="w-full text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>
 
           {/* Address Fields */}
-          <div className="my-3 flex flex-col">
-            <label className="text-lg font-semibold mb-4">Street</label>
+          <div className="flex flex-col">
+            <label className="text-lg font-semibold mb-2">Street</label>
             <input
               type="text"
               placeholder="Enter your street address"
-              className="w-[30vw] text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
+              className="w-full text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
               value={street}
               onChange={(e) => setStreet(e.target.value)}
             />
           </div>
 
-          <div className="my-3 flex flex-col">
-            <label className="text-lg font-semibold mb-4">City</label>
+          <div className="flex flex-col">
+            <label className="text-lg font-semibold mb-2">City</label>
             <input
               type="text"
               placeholder="Enter your city"
-              className="w-[30vw] text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
+              className="w-full text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
               value={city}
               onChange={(e) => setCity(e.target.value)}
             />
           </div>
 
-          <div className="my-3 flex flex-col">
-            <label className="text-lg font-semibold mb-4">State</label>
+          <div className="flex flex-col">
+            <label className="text-lg font-semibold mb-2">State</label>
             <input
               type="text"
               placeholder="Enter your state"
-              className="w-[30vw] text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
+              className="w-full text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
               value={state}
               onChange={(e) => setState(e.target.value)}
             />
           </div>
 
-          <div className="my-3 flex flex-col">
-            <label className="text-lg font-semibold mb-4">ZIP Code</label>
+          <div className="flex flex-col">
+            <label className="text-lg font-semibold mb-2">ZIP Code</label>
             <input
               type="text"
               placeholder="Enter your ZIP code"
-              className="w-[30vw] text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
+              className="w-full text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
               value={zip}
               onChange={(e) => setZip(e.target.value)}
             />
           </div>
 
-          <div className="my-3 flex flex-col">
-            <label className="text-lg font-semibold mb-4">Password</label>
+          <div className="flex flex-col">
+            <label className="text-lg font-semibold mb-2">Password</label>
             <input
               type="password"
               placeholder="Enter your password"
-              className="w-[30vw] text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
+              className="w-full text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
-          <div className="my-4 flex flex-col">
-            <label className="text-lg font-semibold mb-4">
+          <div className="flex flex-col">
+            <label className="text-lg font-semibold mb-2">
               Confirm Password
             </label>
             <input
               type="password"
               placeholder="Confirm your password"
-              className="w-[30vw] text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
+              className="w-full text-black font-medium outline-none border border-gray-300 p-3 rounded-md"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
