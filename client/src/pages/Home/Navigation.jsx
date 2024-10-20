@@ -15,6 +15,7 @@ const Navigation = () => {
   const [logoutApiCallback] = useLogoutMutation();
 
   const [dropdown, setDropdown] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false); // For mobile menu toggle
 
   const handleDropdownToggle = () => {
     setDropdown(!dropdown);
@@ -33,27 +34,62 @@ const Navigation = () => {
   };
 
   return (
-    <div className="flex  justify-between items-center h-30 shadow-sm  px-6 bg-transparent ">
-      <div className="w-[24%]">
+    <nav className="flex justify-between items-center h-20 px-4 md:px-6 bg-transparent shadow-sm relative">
+      <div className="w-28 md:w-[24%]">
         <Link to="/">
-          <img src={logo} alt="" />
+          <img src={logo} alt="Logo" />
         </Link>
       </div>
 
-      <div className=" w-[40%] flex space-x-6">
+      {/* Hamburger Icon for Mobile */}
+      <button
+        onClick={() => setMenuOpen(!menuOpen)}
+        className="md:hidden block text-white focus:outline-none"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          {menuOpen ? (
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          ) : (
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            />
+          )}
+        </svg>
+      </button>
+
+      {/* Links */}
+      <div
+        className={`${
+          menuOpen ? "flex" : "hidden"
+        } md:flex w-full  md:w-[40%] md:space-x-6 flex-col md:flex-row absolute md:relative top-20 left-0 md:top-auto md:left-auto bg-gray-800 md:bg-transparent text-white  p-4 md:p-0`}
+      >
         {["Home", "distributors", "soil", "about"].map((e, i) => (
           <Link
             key={i}
             to={e.toLowerCase() === "home" ? "/" : `/${e.toLowerCase()}`}
+            className="text-lg font-bold tracking-widest capitalize hover:underline"
           >
-            <h2 className="text-lg font-bold tracking-widest capitalize hover:underline">
-              {e}
-            </h2>
+            {e}
           </Link>
         ))}
       </div>
 
-      <div className="  relative flex items-center mr-8">
+      {/* User Profile/Dropdown */}
+      <div className="relative flex items-center">
         <button
           onClick={handleDropdownToggle}
           className="flex justify-center items-center focus:outline-none"
@@ -62,9 +98,7 @@ const Navigation = () => {
             <h2 className="text-lg font-black tracking-widest">
               {userInfo.username}
             </h2>
-          ) : (
-            <></>
-          )}
+          ) : null}
 
           {userInfo && (
             <svg
@@ -85,27 +119,28 @@ const Navigation = () => {
             </svg>
           )}
         </button>
+
+        {/* Dropdown for User Actions */}
         {dropdown && userInfo && (
-          <div className="absolute top-[2.3vw]  right-0  py-3 rounded-lg flex flex-col  bg-white text-gray-950 px-5 hover:bg-zinc-700 hover:text-white   ">
+          <div className="absolute top-full right-0 py-3 mt-2 rounded-lg flex flex-col bg-white text-gray-950 px-5">
             {userInfo?.role === "admin" && (
               <Link
                 to="/admin/dashboard"
-                className="flex items-center space-x-1 text-[1.3vw] my-3  hover:text-red-300"
+                className="flex items-center space-x-1 text-sm my-3 hover:text-red-300"
               >
                 <MdAdminPanelSettings /> <span>Dashboard</span>
               </Link>
             )}
-
             <Link
               to="/profile"
-              className="flex items-center space-x-1 hover:underline text-[1.1vw] my-1"
+              className="flex items-center space-x-1 text-sm my-1 hover:underline"
             >
               <FaUser />
               <span>Profile</span>
             </Link>
             <button
               onClick={handleLogout}
-              className="flex items-center space-x-1 hover:underline text-[1.1vw] my-1 "
+              className="flex items-center space-x-1 text-sm my-1 hover:underline"
             >
               <FaSignOutAlt />
               <span>Logout</span>
@@ -114,8 +149,8 @@ const Navigation = () => {
         )}
 
         {!userInfo && (
-          <>
-            <Link className=" font-bold py-2 px-4 rounded" to="/login">
+          <div className="flex space-x-4">
+            <Link className="font-bold py-2 px-4 rounded" to="/login">
               Login
             </Link>
             <Link
@@ -124,10 +159,10 @@ const Navigation = () => {
             >
               Register
             </Link>
-          </>
+          </div>
         )}
       </div>
-    </div>
+    </nav>
   );
 };
 
