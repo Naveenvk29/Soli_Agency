@@ -1,6 +1,6 @@
 import Soil from "../Model/soil.model.js";
 import asyncHandler from "../Utils/asyncHandler.js";
-import { uploadSoilImage, deleteSoilImage } from "../Utils/cloudinary.js";
+import { uploadSoilImage, deleteSoilImage } from "../Utils/Cloudinary.js";
 
 // get all this Soil
 const getAllSoils = asyncHandler(async (req, res) => {
