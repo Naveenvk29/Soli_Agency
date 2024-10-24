@@ -21,7 +21,7 @@ const uploadImage = async (file, folder, publicIdPrefix) => {
       resource_type: "auto",
     });
     await fs.unlink(file.path);
-    return res.secure_url;
+    return res;
   } catch (error) {
     if (file.path) await fs.unlink(file.path); // Ensure the file is deleted in case of error
     console.error(error.message);
